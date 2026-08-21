@@ -95,16 +95,21 @@ worth interrupting for.
 
 ---
 
-## Known open items (W1, as of 2026-08-21)
+## Known open items (W1, verified 2026-08-21, 4th pass)
 
 Refresh these on each run; they are a starting point, not the truth.
 
-- **E** — survived / did not survive counts: no cell found
-- **H** — passenger counts by `Pclass`: no cell found
-- **I** — survival by class: no cell found
-- **J** — survival by sex: no cell found
-- **D** — partial: `Sex` value counts present, survival split not addressed
+- **C (sub)** — rows with at least one missing value: not answered
+- **C (sub)** — how to drop those rows: not answered (`dropna` absent)
 - **Header** — student name and ID still `...`
 - **Filename** — still `Lab1_Introduction.ipynb`, rule asks for `Lab1_name.ipynb`
-- **Execution** — counts run 1-8, then jump to 10-11; cells 15, 16, 20, 21, 23-25 have
-  never been executed. Needs a restart-and-run-all before submitting.
+- **Execution** — E and the new L cell have no output yet; needs Restart & Run All,
+  which also renumbers the counts (currently 190-207 with nulls) to 1-21
+- **Cell 18** — bare `data` dump, answers nothing
+- **Cell 27** — `by_port` assigned but never displayed
+
+Fixed in the 4th pass (written for the student on request): **E** now counts
+`data['Survived']` directly instead of grouping by sex; **L** regained the ``
+word-boundary cell and the conclusion markdown now explains why Jackson / Ambrose /
+Rosen do not count. Both were verified against the cached dataset before insertion.
+Earlier passes fixed H, I, J and the missing outputs.
