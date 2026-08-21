@@ -7,13 +7,15 @@ Welcome to my coursework and project repository for **INF-604: Data Analysis** a
 ## **Repository Overview**
 
 ```text
-├── labs/                 # Weekly lab assignments and practice notebooks
-│   ├── lab-01/          # Descriptive statistics & environment setup
-│   ├── lab-02/          # Data cleaning and handling missing values
-│   └── ...
-├── project/              # Final Data Analysis Project
+├── W1/                   # Week 1 — Introduction, importing data, missing values
+│   └── Lab1_Introduction.ipynb
+├── W2/                   # Week 2 — one folder per week, W3/, W4/, ...
+├── project/              # Final Data Analysis Project (planned)
 │   ├── data/            # Raw and processed datasets
 │   ├── notebooks/       # EDA and modeling notebooks
 │   └── report.pdf       # Final compiled PDF report
-├── notes/                # Lecture notes & quick reference guides
+├── notes/                # Lecture notes & quick reference guides (planned)
+├── CLAUDE.md             # How Claude Code assists in this repo (teaching assistant)
+├── LOOP.md               # Pre-submission assignment double-check routine
 └── README.md             # Course overview & personal progress tracker
+```
