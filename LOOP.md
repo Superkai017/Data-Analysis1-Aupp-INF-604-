@@ -95,21 +95,31 @@ worth interrupting for.
 
 ---
 
-## Known open items (W1, verified 2026-08-21, 4th pass)
+## Known open items (W1, verified 2026-08-22, 5th pass)
 
 Refresh these on each run; they are a starting point, not the truth.
 
-- **C (sub)** — rows with at least one missing value: not answered
-- **C (sub)** — how to drop those rows: not answered (`dropna` absent)
+- **L (cell 29 + 30)** — the word-boundary cell was replaced by a copy of cell 28
+  (plain `'Jack'` / `'Rose'`, no `\b`), so it prints 1 and 2 under the label
+  "actually named". The conclusion in cell 30 ("two people name rose and 1 name
+  jack") contradicts the rows printed right above it: `Brewe, Dr. Arthur Jackson`,
+  `Hood, Mr. Ambrose Jr`, `Aks, Mrs. Sam (Leah Rosen)`. Verified against the cached
+  CSV: word-boundary matches are 0 and 0.
+- **C (sub)** — rows with at least one missing value: still not answered
+- **C (sub)** — how to drop those rows: still not answered (`dropna` absent)
 - **Header** — student name and ID still `...`
 - **Filename** — still `Lab1_Introduction.ipynb`, rule asks for `Lab1_name.ipynb`
-- **Execution** — E and the new L cell have no output yet; needs Restart & Run All,
-  which also renumbers the counts (currently 190-207 with nulls) to 1-21
+- **Execution** — now 1-20 top to bottom, but the last cell (29) is 23; a final
+  Restart & Run All would close the gap
+- **Cell 14** — `Cabin` drop uses `inplace=True` and prints nothing, so the effect
+  is invisible in the output
 - **Cell 18** — bare `data` dump, answers nothing
 - **Cell 27** — `by_port` assigned but never displayed
 
-Fixed in the 4th pass (written for the student on request): **E** now counts
-`data['Survived']` directly instead of grouping by sex; **L** regained the ``
-word-boundary cell and the conclusion markdown now explains why Jackson / Ambrose /
-Rosen do not count. Both were verified against the cached dataset before insertion.
-Earlier passes fixed H, I, J and the missing outputs.
+Fixed since the 4th pass (by the student): the whole notebook was re-run, so counts
+went from 190-231 to 1-20 and every answering cell now shows output. E, F, G, H, I,
+J, K all carry output. No tracebacks anywhere.
+
+Regressed since the 4th pass: **L**. The 4th-pass word-boundary cell and its
+explanation were overwritten by the student's own version, which is where the wrong
+conclusion comes from. Earlier passes fixed H, I, J and the missing outputs.
