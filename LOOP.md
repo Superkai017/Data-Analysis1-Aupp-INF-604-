@@ -121,34 +121,35 @@ header filled, the file renamed, no tracebacks and the cells in order. That is t
 
 ---
 
-## Current standing (W1, graded 2026-08-22, 5th pass)
+## Current standing (W1, graded 2026-08-22, 6th pass)
 
 Refresh this on each run; it is a starting point, not the truth.
 
 ```text
-Lab: W1/Lab1_Introduction.ipynb        (graded 20:34)
-Grade (estimate): 77% — C
+Lab: W1/Lab1_Introduction.ipynb        (graded 20:44)
+Grade (estimate): 81% - B
 
 Questions    10.5 / 12 letters -> 61.3 / 70
 Reflective    7 / 10
-Presentation  9 / 20
+Presentation 13 / 20
 ```
 
 Deductions, biggest first:
 
-- **L — 0.0** (cells 29-30). The word-boundary cell was replaced by a copy of cell 28
+- **L - 0.0** (cells 29-30). The word-boundary cell was replaced by a copy of cell 28
   (plain `'Jack'` / `'Rose'`), so it prints 1 and 2 under the label "actually named",
   and cell 30 concludes there are two Roses and one Jack. The rows printed directly
   above it are `Brewe, Dr. Arthur Jackson`, `Hood, Mr. Ambrose Jr` and
-  `Aks, Mrs. Sam (Leah Rosen)` — substrings, not names. Verified against the cached
+  `Aks, Mrs. Sam (Leah Rosen)` - substrings, not names. Verified against the cached
   CSV: a word-boundary match returns 0 and 0. The answer contradicts its own output.
-- **C — 0.5** (after cell 11). `data.isna().sum()` gives per-column counts; the
+- **C - 0.5** (after cell 11). `data.isna().sum()` gives per-column counts; the
   question asks how many *rows* hold at least one missing value, and how those rows
   would be dropped. `dropna` never appears. (Row counts: 708 before `Cabin` is
   dropped, 179 after.)
-- **Reflective — 7/10** (cell 3). All five prompts addressed in the student's own
-  words, but one line each and no reasoning for the sample size or the data choices.
-- **Presentation — 9/20**: name and ID still `...` (0/4); file still named
+- **Reflective - 7/10** (cell 3). All five prompts addressed in the student's own
+  words and now numbered, but one line each and no reasoning for the sample size or
+  the data choices.
+- **Presentation - 13/20**: name and ID filled in (4/4); file still named
   `Lab1_Introduction.ipynb` against the `Lab1_name.ipynb` rule (0/4); cells 1-20 in
   order but the last cell is 23 (2/4); cell 14 drops `Cabin` with `inplace=True` and
   prints nothing, so the effect is invisible (3/4); runs clean, no tracebacks (4/4).
@@ -156,7 +157,7 @@ Deductions, biggest first:
 Notes, not deductions: cell 18 is a bare `data` dump that answers nothing; cell 27
 assigns `by_port` and never displays it (the crosstab is what answers K).
 
-Since the 4th pass: the student re-ran everything, so counts went from 190-231 to 1-20
-and every answering cell now shows output — that lifted presentation and closed the
-old "no output" deductions on E and L. L itself regressed: the 4th-pass word-boundary
-cell and its explanation were overwritten. Earlier passes fixed H, I and J.
+Since the 5th pass (20:34 -> 20:44): the header was filled in (Art Oudom / 2025577),
++4 presentation, 77% -> 81%. Nothing else moved - L, C and the filename are unchanged.
+Earlier passes: the full re-run fixed the 190-231 execution counts and the missing
+outputs; H, I and J were fixed before that.
