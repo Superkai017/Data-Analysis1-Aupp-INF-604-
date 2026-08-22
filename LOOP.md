@@ -91,36 +91,35 @@ interrupting for.
 
 ---
 
-## Current standing (W1, checked 2026-08-22, 8th pass)
+## Current standing (W1, checked 2026-08-22, 10th pass)
 
 Refresh this on each run; it is a starting point, not the truth.
 
 ```text
-Lab: W1/Lab1_Introduction.ipynb        (checked 20:58)
-9 of 12 match · 1 mismatch · 1 partly · 1 unsupported
+Lab: W1/Lab1_ArtOudom.ipynb        (checked 21:03)
+12 of 12 match - no mismatches, no unanswered questions, no tracebacks
 ```
 
-- **L - mismatch** (cells 31-33). Cell 32 is a copy of cell 31 (plain `'Jack'` /
-  `'Rose'`, no word boundary), so it prints 1 and 2 under the label "actually named",
-  and cell 33 concludes there are two Roses and one Jack. The rows printed directly
-  above it are `Brewe, Dr. Arthur Jackson`, `Hood, Mr. Ambrose Jr` and
-  `Aks, Mrs. Sam (Leah Rosen)` - substrings, not names. Verified against the cached
-  CSV: a word-boundary match returns 0 and 0.
-- **C - partly** (after cell 11). `data.isna().sum()` gives per-column counts, which
-  answers "are there missing values". It does not answer "how many rows contain at
-  least one", and the sub-bullet asking how to drop those rows has no cell at all -
-  `dropna` never appears. (Row counts: 708 before `Cabin` is dropped, 179 after.)
-  The other sub-bullet, `Cabin`, is answered: 77% missing in cell 13, dropped in 14.
-- **G - unsupported** (cell 22). The numbers are right, but the cell now shows `[ ]` -
-  it was edited after running, so its output no longer belongs to its code. Re-run it.
+Every answer now matches its question and every number is confirmed against the
+cached CSV:
 
-Verified as matching against the cached CSV: **A** 891 x 12 · **B** all 12 columns
-described · **D** 577 male / 314 female · **E** 342 survived, 549 not · **F** 24 under
-3, 22 over 60 (after the median fill) · **G** 168 C, 77 Q, 646 S · **H** 216 / 184 /
-491 · **I** 136 / 87 / 119 · **J** 233 female, 109 male · **K** 93 C, 30 Q, 219 S.
+**A** 891 x 12 · **B** all 12 columns described · **C** 708 rows with at least one
+missing value, `Cabin` 77% missing and dropped, `dropna()` leaves (712, 11) ·
+**D** 577 male / 314 female · **E** 342 survived, 549 not · **F** 24 under 3, 22 over
+60 · **G** 168 C, 77 Q, 646 S · **H** 216 / 184 / 491 · **I** 136 / 87 / 119 ·
+**J** 233 female, 109 male · **K** 93 C, 30 Q, 219 S · **L** 0 named Jack, 0 named
+Rose - the three hits are Jackson, Ambrose and Rosen.
 
-Notes, not mismatches: the file is still named `Lab1_Introduction.ipynb` while cell 1
-asks for `Lab1_name.ipynb`; cell 14 drops `Cabin` with `inplace=True` and prints
-nothing; cell 18 is a bare `data` dump; cell 29 assigns `by_port` and never displays
-it; the comment on cell 22 explaining that the two filled `Embarked` rows land in
-Southampton was removed - it was worth keeping.
+The whole notebook ran in one top-to-bottom sweep with no gaps and no errors, so every
+output belongs to the code above it.
+
+Notes, none of them mismatches:
+
+- renamed to `Lab1_ArtOudom.ipynb`, which satisfies the `Lab1_name.ipynb` rule in
+  cell 1
+- execution counts run 24-46 rather than 1-23: Run All on a live kernel, not a restart.
+  The order is clean, so nothing is stale, but a restart would make that obvious to a
+  reader
+- cell 15 drops `Cabin` with `inplace=True` and prints nothing
+- cell 20 is a bare `data` dump that answers nothing
+- cell 31 assigns `by_port` and never displays it - the crosstab is what answers K
