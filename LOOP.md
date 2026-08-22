@@ -1,7 +1,7 @@
-# LOOP.md — Assignment grading pass
+# LOOP.md — Answer-to-question check
 
-A recurring **grade** of the lab currently being worked on: mark it the way the
-instructor will, report the estimated score, and name what is costing marks.
+A recurring check of the lab currently being worked on. One job: **for every question,
+does the answer that follows actually answer that question?**
 Run it with the `/loop` skill:
 
 ```text
@@ -9,12 +9,13 @@ Run it with the `/loop` skill:
 /loop follow the task in LOOP.md     # let the model pace itself
 ```
 
-**This task grades. It does not fix.** Never edit a notebook during a loop run —
-the student decides what to change. Report the grade and the deductions, then stop.
-If the student then asks for help on any item, that is a normal request: switch to
-assist mode per `CLAUDE.md` and answer it fully, code included.
+**This task reports. It does not fix.** Never edit a notebook during a loop run —
+the student decides what to change. Report the mismatches and stop. If the student
+then asks for help on one, that is a normal request: switch to assist mode per
+`CLAUDE.md` and answer it fully, code included.
 
-**The grade is an estimate**, not an official mark. Say so every time.
+**Not in scope:** no percentage grade, no marks for presentation, and no grading of
+the reflective / opinion answers — those are the student's own thinking. Skip them.
 
 ---
 
@@ -25,81 +26,51 @@ assist mode per `CLAUDE.md` and answer it fully, code included.
 The most recently modified `W*/Lab*.ipynb` (`git status` shows what is in progress).
 If several are modified, take the one with the newest mtime and name it in the report.
 
-### 2. Build the question list
+### 2. Pair each question with its answer
 
-Read every markdown cell and pull out:
+Walk the notebook in order. For every lettered question (**A**, **B**, **C**, …) and
+every sub-bullet that asks something ("What should you do with column `Cabin`?"), find
+the cell or cells that follow it and are meant to answer it.
 
-- numbered sections (`## 1.`, `### 2.1.`, …)
-- every lettered question (`**A.**`, `**B.**`, … through the end of the notebook)
-- every sub-bullet that asks something ("What should you do with column `Cabin`?")
+Sub-bullets are questions too. They are the ones most often missed.
 
-Sub-bullets are graded items, not decoration. They are the ones most often missed.
+### 3. Give each question one verdict
 
-### 3. Mark each question
-
-| Mark | Meaning |
+| Verdict | Meaning |
 | --- | --- |
-| **1.0** | answered: code runs, output is present, and the answer is stated or obvious from that output |
-| **0.5** | partial: only part of the question answered, or code with no output, or an answer asserted but not supported by the printed numbers |
-| **0.0** | missing, a placeholder (`...`, `TODO`, `#To do`), or **contradicted by its own output** |
+| **match** | the cell answers the question that was asked, the output is there, and the claim is supported by the data |
+| **partly** | answers only part of it — one sub-bullet done, the other not |
+| **mismatch** | answers a different question than the one asked, or states a conclusion its own output contradicts |
+| **not answered** | no cell addresses it, or it is a placeholder (`...`, `TODO`, `#To do`) |
 
-A letter with sub-bullets is worth 1.0 in total; its parts split it equally.
+**mismatch leads the report.** An answer that contradicts the output printed directly
+above it is worse than a blank, because the student does not know it is wrong.
 
-Rules that keep the marking honest:
+Rules that keep the check honest:
 
-- **Verify before deducting.** Run the cell or check the dataset. Never mark from memory.
-- Match answers to questions by position and content. If a cell's purpose is ambiguous,
-  say so and mark it 0.5 rather than guessing either way.
-- Grade the answer that is there, not the one you would have written. A correct result
-  reached a different way is full marks.
-- Style problems (`inplace=True`, a dead variable, a bare `data` dump) are **notes**,
-  not deductions — unless they hide the answer, which is a presentation deduction.
-- An answer that contradicts the output printed directly above it is the worst failure
-  mode in a lab: it scores 0 and leads the report.
+- **Verify before calling anything wrong.** Run the cell or check the dataset against
+  the claim. Never from memory, never from what the answer looks like it should be.
+- Match answers to questions by position and content. If a cell's purpose is
+  ambiguous, say so rather than guessing either way.
+- Judge the answer that is there, not the one you would have written. A correct result
+  reached a different way is a match.
+- Style (`inplace=True`, a dead variable, a bare `data` dump) is not a mismatch. At
+  most it is a one-line note at the end.
+- A cell with no output, or with an output that no longer belongs to its code because
+  the code was edited after running, cannot support its claim — say so under that
+  question.
 
-### 4. Mark presentation and reproducibility
+### 4. Report
 
-20 points, 4 each:
-
-- **Header** — student name and ID filled in, not `...`.
-- **Filename** — matches the submission rule stated in the notebook
-  (Lab 1: `Lab1_name.ipynb`).
-- **Execution order** — cells numbered `1..n` top to bottom. Out-of-order or `[ ]`
-  counts mean the notebook was not restarted-and-run-all before saving. Partial credit
-  if the body is in order and only a trailing cell is off.
-- **Outputs present** — every cell that answers something shows its output; cleaning
-  steps print the before/after so the effect is visible.
-- **Runs clean** — no tracebacks, no hard-coded absolute paths, no reliance on a
-  variable from a cell that was later deleted or edited.
-
-### 5. Weights
-
-| Component | Weight |
-| --- | --- |
-| Lettered questions (A, B, C, …) | 70% — split equally across the letters |
-| Reflective / open sections | 10% |
-| Presentation and reproducibility | 20% |
-
-Reflective answers are marked on whether all the prompts are addressed and whether the
-reasoning is there — never on whether you agree with them, and never by writing them.
-
-Bands: **A** 90+ · **B** 80+ · **C** 70+ · **D** 60+ · **F** below 60.
-
-### 6. Report
-
-Short, scannable, grade first, then the biggest deduction:
+Short, mismatches first:
 
 ```text
-Lab: W1/Lab1_Introduction.ipynb        (graded HH:MM)
-Grade (estimate): 77% — C
-
-Questions    10.5 / 12 letters -> 61.3 / 70   (C 0.5, L 0)
-Reflective    7 / 10
-Presentation  9 / 20   (name/ID, filename, run order, silent cleaning cell)
+Lab: W1/Lab1_Introduction.ipynb        (checked HH:MM)
+10 of 12 match · 1 mismatch · 1 partly
 ```
 
-Then **one line per deduction**, naming the question, the cell index, and what is
-missing — as a hint, not an answer:
+Then **one line per problem**, naming the question, the cell index, and what is off —
+as a hint, not an answer:
 
 ```text
 E (after cell 17) — needs the survived/did-not-survive counts; `Survived` is 0/1,
@@ -109,55 +80,47 @@ E (after cell 17) — needs the survived/did-not-survive counts; `Survived` is 0
 Do not include working code in a loop report. That is what assist mode is for, and the
 student has to ask for it.
 
-### 7. Quiet runs
+### 5. Quiet runs
 
-If nothing has changed since the previous run — same notebook, same grade — say so in
-one line ("no change since HH:MM, still 77%") and mark the tick as no-op. Do not
-re-print the full breakdown every time.
+If nothing has changed since the previous run, say so in one line ("no change since
+HH:MM, still 1 mismatch") and mark the tick as no-op. Do not re-print the full list
+every time.
 
-Announce loudly when the grade first reaches full marks on the questions with the
-header filled, the file renamed, no tracebacks and the cells in order. That is the
-"ready to submit" signal, and it is worth interrupting for.
+Announce loudly the first time every question matches. That is the signal worth
+interrupting for.
 
 ---
 
-## Current standing (W1, graded 2026-08-22, 6th pass)
+## Current standing (W1, checked 2026-08-22, 8th pass)
 
 Refresh this on each run; it is a starting point, not the truth.
 
 ```text
-Lab: W1/Lab1_Introduction.ipynb        (graded 20:44)
-Grade (estimate): 81% - B
-
-Questions    10.5 / 12 letters -> 61.3 / 70
-Reflective    7 / 10
-Presentation 13 / 20
+Lab: W1/Lab1_Introduction.ipynb        (checked 20:58)
+9 of 12 match · 1 mismatch · 1 partly · 1 unsupported
 ```
 
-Deductions, biggest first:
-
-- **L - 0.0** (cells 29-30). The word-boundary cell was replaced by a copy of cell 28
-  (plain `'Jack'` / `'Rose'`), so it prints 1 and 2 under the label "actually named",
-  and cell 30 concludes there are two Roses and one Jack. The rows printed directly
+- **L - mismatch** (cells 31-33). Cell 32 is a copy of cell 31 (plain `'Jack'` /
+  `'Rose'`, no word boundary), so it prints 1 and 2 under the label "actually named",
+  and cell 33 concludes there are two Roses and one Jack. The rows printed directly
   above it are `Brewe, Dr. Arthur Jackson`, `Hood, Mr. Ambrose Jr` and
   `Aks, Mrs. Sam (Leah Rosen)` - substrings, not names. Verified against the cached
-  CSV: a word-boundary match returns 0 and 0. The answer contradicts its own output.
-- **C - 0.5** (after cell 11). `data.isna().sum()` gives per-column counts; the
-  question asks how many *rows* hold at least one missing value, and how those rows
-  would be dropped. `dropna` never appears. (Row counts: 708 before `Cabin` is
-  dropped, 179 after.)
-- **Reflective - 7/10** (cell 3). All five prompts addressed in the student's own
-  words and now numbered, but one line each and no reasoning for the sample size or
-  the data choices.
-- **Presentation - 13/20**: name and ID filled in (4/4); file still named
-  `Lab1_Introduction.ipynb` against the `Lab1_name.ipynb` rule (0/4); cells 1-20 in
-  order but the last cell is 23 (2/4); cell 14 drops `Cabin` with `inplace=True` and
-  prints nothing, so the effect is invisible (3/4); runs clean, no tracebacks (4/4).
+  CSV: a word-boundary match returns 0 and 0.
+- **C - partly** (after cell 11). `data.isna().sum()` gives per-column counts, which
+  answers "are there missing values". It does not answer "how many rows contain at
+  least one", and the sub-bullet asking how to drop those rows has no cell at all -
+  `dropna` never appears. (Row counts: 708 before `Cabin` is dropped, 179 after.)
+  The other sub-bullet, `Cabin`, is answered: 77% missing in cell 13, dropped in 14.
+- **G - unsupported** (cell 22). The numbers are right, but the cell now shows `[ ]` -
+  it was edited after running, so its output no longer belongs to its code. Re-run it.
 
-Notes, not deductions: cell 18 is a bare `data` dump that answers nothing; cell 27
-assigns `by_port` and never displays it (the crosstab is what answers K).
+Verified as matching against the cached CSV: **A** 891 x 12 · **B** all 12 columns
+described · **D** 577 male / 314 female · **E** 342 survived, 549 not · **F** 24 under
+3, 22 over 60 (after the median fill) · **G** 168 C, 77 Q, 646 S · **H** 216 / 184 /
+491 · **I** 136 / 87 / 119 · **J** 233 female, 109 male · **K** 93 C, 30 Q, 219 S.
 
-Since the 5th pass (20:34 -> 20:44): the header was filled in (Art Oudom / 2025577),
-+4 presentation, 77% -> 81%. Nothing else moved - L, C and the filename are unchanged.
-Earlier passes: the full re-run fixed the 190-231 execution counts and the missing
-outputs; H, I and J were fixed before that.
+Notes, not mismatches: the file is still named `Lab1_Introduction.ipynb` while cell 1
+asks for `Lab1_name.ipynb`; cell 14 drops `Cabin` with `inplace=True` and prints
+nothing; cell 18 is a bare `data` dump; cell 29 assigns `by_port` and never displays
+it; the comment on cell 22 explaining that the two filled `Embarked` rows land in
+Southampton was removed - it was worth keeping.
