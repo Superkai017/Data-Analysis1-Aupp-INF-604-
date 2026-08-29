@@ -42,8 +42,10 @@ You have two jobs in this repo, and they are separate.
 - Cite the cell index for every problem and say what specifically is off.
 - Judge the answer that is there, not the one you would have written. A correct result
   reached a different way is a match. Style is a note, not a problem.
-- No percentage grades, no marks for presentation, and do not grade the reflective /
-  opinion answers - those are the student's own thinking.
+- Do not grade the reflective / opinion answers - those are the student's own thinking.
+- Verdicts only by default. A `/loop` tick and a plain review report verdicts and
+  nothing else - no score. Score the lab **only when the student asks to grade it**,
+  and then use the rubric below.
 - Be honest. Saying it looks fine when it does not is useless; the instructor will not
   say it looks fine.
 
@@ -73,6 +75,68 @@ When the student asks for help:
   issue and let them decide.
 - Never silently improve a cell you were not asked to touch.
 - Never remove the question markdown cells from a lab notebook.
+
+---
+
+## Submission-readiness rubric
+
+Run this **only when the student asks to grade an assignment**. It supersedes the
+"verdicts only" default above for that request; `/loop` ticks stay verdict-only.
+
+> **This is not the course's marking scheme.** Sothea HAS's rubric is not in this repo.
+> These weights are this repo's own standard, chosen so that most of the score rests on
+> things that can be checked by running the notebook rather than on taste. If the real
+> rubric ever lands here, replace this section with it and say so in the report.
+
+### Two gates, scored separately
+
+**Gate 1 - blocking defects.** Any one of these means **NOT READY**, whatever the score
+is. Each is objectively checkable; check all five every time.
+
+| # | Blocking defect | How to check |
+| --- | --- | --- |
+| B1 | An answer contradicts the output printed above it | pair every claim to its cell |
+| B2 | A number appears in prose that no cell computes | trace each figure to an output |
+| B3 | A saved output holds a traceback | scan cells for `output_type == "error"` |
+| B4 | A question or sub-bullet has no answer | pair questions to cells |
+| B5 | Outputs do not belong to their code | execution counts must be a clean `1..n` |
+
+B5 is the one students cannot see. Stale output looks identical to fresh output.
+
+**Gate 2 - the score.** 100 points across six dimensions. Weight sits on correctness.
+
+| Dimension | Pts | Full marks means |
+| --- | ---: | --- |
+| **Answer coverage** | 20 | every lettered question *and* every sub-bullet answered, in order |
+| **Factual correctness** | 30 | every claim re-verified against the data, not read off memory |
+| **Output integrity** | 15 | restart-and-run-all is clean; counts `1..n`; no errors |
+| **Method fit** | 15 | the right tool for the question - median not mean on a skewed column, histogram not barchart for a continuous one, `value_counts` where a count is asked for |
+| **Interpretation** | 12 | prose says what the number *means*; does not just restate it |
+| **Figure honesty** | 8 | titles and axis labels describe what was actually plotted; no blank panels; no title claiming a split that no `hue` produces |
+
+Deduct against a dimension only with a cell index and a stated reason.
+
+### What is explicitly not scored
+
+- Reflective / opinion answers. Critique them, never score them, never write them.
+- Spelling, grammar, variable naming, `inplace=True`, a dead variable. These are
+  **notes at the end of the report**, worth zero points. Flag them; do not deduct.
+- Aesthetics - colour, theme, figure size. "Figure honesty" scores whether a chart
+  tells the truth, not whether it is pretty.
+
+### Report format
+
+Lead with the gate, because that is the answer to "can I submit this".
+
+```text
+READY / READY WITH NOTES / NOT READY
+Score: NN/100    (coverage N/20 · correctness N/30 · integrity N/15 ·
+                  method N/15 · interpretation N/12 · figures N/8)
+Blocking: none          # or B1 at cell 14, B4 at question C, ...
+```
+
+Then one line per deduction with its cell index, then unscored notes. State plainly
+that the weights are this repo's, not the instructor's, every time a score is given.
 
 ---
 
